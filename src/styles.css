@@ -149,59 +149,34 @@
 .welcome-card h1{font-size:clamp(40px,6.5vw,68px);line-height:.98;letter-spacing:-.05em;margin:12px 0 18px}.welcome-card h1 i{font-weight:400}.welcome-intro{font-size:18px;line-height:1.5;max-width:600px;opacity:.72;margin:0 0 28px}.welcome-how{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:0 0 30px}.welcome-how article{display:flex;gap:10px;align-items:flex-start;padding:15px;border:1px solid var(--line,#ddd);border-radius:14px;background:#fafaf7}.welcome-how article>span{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:#e7efe8;font:700 11px 'DM Mono';flex:0 0 auto}.welcome-how b{display:block;font-size:15px;margin-bottom:3px}.welcome-how small{display:block;font-size:11px;line-height:1.45;opacity:.65}.welcome-level{border-top:1px solid var(--line,#ddd);padding-top:24px}.welcome-level .level-picker{margin-bottom:8px}.welcome-level>small{font-size:11px;opacity:.6}.welcome-start{margin-top:22px;min-width:210px;justify-content:center}
 @media(max-width:700px){.welcome-screen{padding:18px}.welcome-card{padding:26px 20px;border-radius:18px}.welcome-card h1{font-size:42px}.welcome-intro{font-size:16px}.welcome-how{grid-template-columns:1fr;gap:8px}.welcome-how article{padding:12px}.welcome-level .level-picker{grid-template-columns:1fr 1fr}.welcome-start{width:100%}}
 
-/* TV / laptop practice viewport fit + explicit audio-to-text control */
-.audio-text-toggle{
-  border:1px solid #b8cfc5;
-  background:#fff;
-  color:#315d51;
-  border-radius:6px;
-  padding:9px 13px;
-  margin:5px 0;
-  font-size:12px;
-  font-weight:800;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  min-height:38px;
-}
+
+/* Targeted TV fit fix — preserves the existing REO design */
+.audio-text-toggle{border:1px solid #b8cfc5;background:#fff;color:#315d51;border-radius:999px;padding:8px 14px;margin:8px auto 2px;font-size:12px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;min-height:36px}
 .audio-text-toggle:hover{background:#eef6f1;border-color:#6f9a8a}
-.audio-text-answer{
-  max-width:620px;
-  margin:8px auto 12px;
-  padding:12px 16px;
-  border:1px solid #c9d8ce;
-  border-radius:7px;
-  background:#f3f7f2;
-  color:var(--ink);
-  font:700 20px/1.35 Fraunces,serif;
-}
+.audio-text-answer{max-width:620px;margin:8px auto 12px;padding:12px 16px;border:1px solid #c9d8ce;border-radius:12px;background:#f3f7f2;color:var(--ink);font:700 20px/1.35 Fraunces,serif}
+
+/* Only tighten the practice/listen screen on shorter desktop/TV viewports. */
 @media (min-width:761px) and (max-height:1000px){
-  .topbar{height:64px}
-  .practice{max-width:980px;padding:10px 20px 18px}
-  .practice-head{margin-bottom:8px}
-  .activity-card{min-height:0;padding:12px 24px 18px}
-  .activity-toolbar{margin-bottom:4px}
-  .activity-meta{margin-bottom:7px}
-  .visual{font-size:78px;margin-bottom:5px}
-  .visual.small{font-size:52px;margin-bottom:3px}
-  .prompt{margin:4px 0;font-size:11px}
-  .activity-card h1{margin:7px 0;font-size:clamp(30px,4vw,50px)}
-  .audio-btn.large{width:76px;height:76px;margin:4px}
-  .build-target{margin:7px auto 6px!important}
+  .practice{padding-top:12px;padding-bottom:28px}
+  .practice-head{margin-bottom:10px}
+  .activity-card{min-height:0;padding-top:18px;padding-bottom:22px}
+  .activity-toolbar{margin-bottom:5px}
+  .activity-meta{margin-bottom:8px}
+  .visual.small{font-size:58px;margin-bottom:4px}
+  .prompt{margin:5px 0}
+  .activity-card h1{margin:8px 0;font-size:clamp(30px,4vw,50px)}
+  .listen-disc{width:108px;height:108px;margin:12px auto}
+  .audio-btn.large{width:68px;height:68px;margin:4px}
   .choices{margin:10px auto;gap:7px}
   .choices button{padding:10px 13px}
-  .built{margin:12px auto;padding:7px;min-height:54px}
-  .word-bank{margin:12px}
-  .check-btn{margin-top:4px}
-  .record-row{margin:12px 0}
-  .feedback{margin-top:9px}
 }
 @media (min-width:761px) and (max-height:760px){
-  .topbar{height:58px}
-  .practice{padding-top:6px}
-  .activity-card{padding:9px 20px 12px}
-  .visual.small{font-size:42px}
-  .audio-btn.large{width:64px;height:64px}
-  .audio-text-toggle{min-height:32px;padding:6px 10px}
+  .topbar{height:62px}
+  .practice{padding-top:6px;padding-bottom:14px}
+  .activity-card{padding-top:10px;padding-bottom:14px}
+  .visual.small{font-size:44px}
+  .audio-btn.large{width:60px;height:60px}
+  .audio-text-toggle{min-height:32px;padding:6px 11px;margin:4px auto 1px}
+  .audio-text-answer{padding:8px 12px;margin:5px auto 8px;font-size:17px}
   .activity-card h1{font-size:32px}
 }
