@@ -212,7 +212,6 @@ function DeviceMode({deviceMode,setDeviceMode}){
  const [open,setOpen]=useState(false);
  const options=[['computer','Computer','Laptop / desktop'],['tablet','Tablet','Touch-friendly layout'],['phone','Phone','Portrait layout']];
  return <div className="device-mode"><button type="button" className="plain-btn compact device-mode-trigger" onClick={()=>setOpen(v=>!v)} aria-expanded={open}>Device: {(deviceMode||'computer')[0].toUpperCase()+(deviceMode||'computer').slice(1)} <span>⌄</span></button>{open&&<div className="device-mode-menu"><b>DISPLAY MODE</b>{options.map(([id,label,desc])=><button key={id} type="button" className={deviceMode===id?'active':''} onClick={()=>{setDeviceMode(id);setOpen(false)}}><span>{label}</span><small>{desc}</small></button>)}</div>}</div>}
-}
 
 function Header({page,setPage,studentMode,setStudentMode,onExit,immersion=false,setImmersion,deviceMode='computer',setDeviceMode}){
 
