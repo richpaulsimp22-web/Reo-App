@@ -354,3 +354,15 @@
   :root[data-device-mode="phone"] .practice .activity-card{zoom:.66}
   :root[data-device-mode="tablet"] .practice .activity-card{zoom:.78}
 }
+
+/* Final lesson viewport fitting: preserve the REO UI while re-fitting the complete
+   lesson whenever its rendered content changes (answers, immersion, transcript,
+   keyboard help, feedback, recording controls, etc.). The fit is scoped to the
+   active lesson card only. */
+.practice .activity-card{zoom:1;transform-origin:top center;}
+.practice .activity-card .key-overlay{max-height:none;overflow:visible;}
+.practice .activity-card .audio-text-answer,
+.practice .activity-card .audio-note{max-width:min(860px,100%);overflow-wrap:anywhere;}
+@media (min-width:721px){
+  .practice .activity-card{margin-bottom:0;}
+}
