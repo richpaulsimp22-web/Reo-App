@@ -377,8 +377,71 @@ function Conversation({level,immersion=false}){
  <section className="source-strip"><b>Adaptive conversation rule</b><span>Successful responses build toward extension. Frequent hints trigger repair/scaffold turns. Speaking recordings contribute evidence without pretending that generic browser speech recognition can accurately grade Māori pronunciation.</span></section></main>
 }
 
-function Progress({progress,start,level,immersion=false}){const rank=LEVELS.find(l=>l.id===level).rank;const visible=learnerItems().filter(i=>i.level<=rank);const mastered=visible.filter(i=>(progress[i.id]?.score||0)>=8).length;const seen=visible.filter(i=>progress[i.id]).length;const needs=visible.filter(i=>(progress[i.id]?.score||0)<4).sort((a,b)=>(progress[a.id]?.score||0)-(progress[b.id]?.score||0)).slice(0,4);const g=readGoals();return <main className="progress-page"><p className="eyebrow">{immersion?'TŌ ARA AKO':'YOUR LEARNING PATH'}</p><h1>{immersion?<>Ngā wā iti<br/><i>ka tāpiri.</i></>:<>Small moments<br/><i>add up.</i></>}</h1><div className="level-banner"><b>{LEVELS.find(l=>l.id===level).label} · {LEVELS.find(l=>l.id===level).mi}</b><span>{immersion?`${seen}/${visible.length} kua tutuki · ${mastered} kua matatau`:`${seen}/${visible.length} items met · ${mastered} mastered`}</span></div><div className="progress-dashboard"><StreakCard/><GoalCard goal={g} setGoal={()=>{}}/></div><section className="progress-hero"><div><b>{Math.round((seen/Math.max(1,visible.length))*100)}%</b><span>of this level<br/>has been met</span></div><div className="ring"><span>{mastered}</span></div></section><section className="progress-insights"><article><b>{needs.length}</b><span>{immersion?'arotake matua':'priority reviews'}</span></article><article><b>{mastered}</b><span>{immersion?'kua matatau':'mastered'}</span></article><article><b>{visible.reduce((n,i)=>n+(progress[i.id]?.seen||0),0)}</b><span>{immersion?'whakamātau':'attempts'}</span></article><article><b>{g.xp||0}</b><span>{immersion?'XP kua whiwhi':'XP earned'}</span></article></section><section className="mastery-mini">{Object.entries(MASTERY).map(([id,m])=>{const n=visible.filter(i=>{const s=progress[i.id]?.score||0;return s>=m.min&&s<=m.max}).length;return <article key={id}><b>{n}</b><span>{m.label}</span></article>})}</section><section className="assessment-history"><p className="eyebrow">RECENT LEVEL CHECKS</p>{readAssessmentHistory().slice(0,3).map((h,n)=><div key={n}><b>{h.score}/{h.total}</b><span>{LEVELS.find(l=>l.id===h.recommendation)?.label}</span><small>{new Date(h.date).toLocaleDateString()}</small></div>)}</section><section className="review-list"><div><p className="eyebrow">{immersion?'AROTAKE ATAWHAI':'SMART REVIEW'}</p><h2>{immersion?'Whakamātauhia ngā mea e tika ana kia arohia.':'Practise what needs attention.'}</h2></div>{needs.length?needs.map(i=><article key={i.id}><span>{i.emoji}</span><div><b>{i.reo}</b><small>{i.meaning}</small></div><button className="plain-btn" onClick={()=>start(2)}>{immersion?'Arotake':'Review'} <ArrowRight size={15}/></button></article>):<p>{immersion?'Kei te hangaia he tūāpapa kaha. Kia whakaharatau tonu.':'You're building a strong base. Keep practising to generate review recommendations.'}</p>}</section><section className="next-up"><div><p className="eyebrow">TEACHER / DEVELOPER</p><h2>Content & learner data</h2><p>Validate curriculum references and export or import learner progress.</p></div><button className="plain-btn" onClick={()=>window.dispatchEvent(new CustomEvent('reo-open-data'))}>Open data centre <ArrowRight size={16}/></button></section><section className="status-list"><h2>Progress by level</h2>{LEVELS.map(l=>{const items=learnerItems().filter(i=>i.level===l.rank);const done=items.filter(i=>progress[i.id]).length;return <div key={l.id}><b>{l.label}</b><i/><span>{done}/{items.length}</span></div>})}</section><section className="next-up"><div><p className="eyebrow">{immersion?'HEI MURI':'NEXT STEP'}</p><h2>{immersion?'Kia rere tonu ngā tauira rerenga.':'Keep sentence patterns moving.'}</h2><p>{immersion?'Whakarongo, whakaraupapa, whakamāori, kōrero.':'Mix listening, ordering, translation and speaking.'}</p></div><button className="start-btn" onClick={()=>start(5)}>{immersion?'Whakamātau 5 meneti':'Practise 5 min'} <ArrowRight size={18}/></button></section></main>}
-
+function Progress({progress,start,level,immersion=false}){
+ const currentLevel=LEVELS.find(l=>l.id===level)||LEVELS[0];
+ const rank=currentLevel.rank;
+ const visible=learnerItems().filter(i=>i.level<=rank);
+ const mastered=visible.filter(i=>(progress[i.id]?.score||0)>=8).length;
+ const seen=visible.filter(i=>progress[i.id]).length;
+ const needs=visible.filter(i=>(progress[i.id]?.score||0)<4).sort((a,b)=>(progress[a.id]?.score||0)-(progress[b.id]?.score||0)).slice(0,4);
+ const g=readGoals();
+ const recentChecks=readAssessmentHistory().slice(0,3);
+ const masteryRows=Object.entries(MASTERY).map(([id,m])=>{
+  const n=visible.filter(i=>{
+   const score=progress[i.id]?.score||0;
+   return score>=m.min&&score<=m.max;
+  }).length;
+  return <article key={id}><b>{n}</b><span>{m.label}</span></article>;
+ });
+ const levelRows=LEVELS.map(l=>{
+  const items=learnerItems().filter(i=>i.level===l.rank);
+  const done=items.filter(i=>progress[i.id]).length;
+  return <div key={l.id}><b>{l.label}</b><i/><span>{done}/{items.length}</span></div>;
+ });
+ const reviewRows=needs.map(i=><article key={i.id}>
+  <span>{i.emoji}</span>
+  <div><b>{i.reo}</b><small>{i.meaning}</small></div>
+  <button className="plain-btn" onClick={()=>start(2)}>{immersion?'Arotake':'Review'} <ArrowRight size={15}/></button>
+ </article>);
+ const reviewEmpty=immersion?'Kei te hangaia he tūāpapa kaha. Kia whakaharatau tonu.':'You\'re building a strong base. Keep practising to generate review recommendations.';
+ return <main className="progress-page">
+  <p className="eyebrow">{immersion?'TŌ ARA AKO':'YOUR LEARNING PATH'}</p>
+  <h1>{immersion?<>Ngā wā iti<br/><i>ka tāpiri.</i></>:<>Small moments<br/><i>add up.</i></>}</h1>
+  <div className="level-banner">
+   <b>{currentLevel.label} · {currentLevel.mi}</b>
+   <span>{immersion?`${seen}/${visible.length} kua tutuki · ${mastered} kua matatau`:`${seen}/${visible.length} items met · ${mastered} mastered`}</span>
+  </div>
+  <div className="progress-dashboard"><StreakCard/><GoalCard goal={g} setGoal={()=>{}}/></div>
+  <section className="progress-hero">
+   <div><b>{Math.round((seen/Math.max(1,visible.length))*100)}%</b><span>of this level<br/>has been met</span></div>
+   <div className="ring"><span>{mastered}</span></div>
+  </section>
+  <section className="progress-insights">
+   <article><b>{needs.length}</b><span>{immersion?'arotake matua':'priority reviews'}</span></article>
+   <article><b>{mastered}</b><span>{immersion?'kua matatau':'mastered'}</span></article>
+   <article><b>{visible.reduce((n,i)=>n+(progress[i.id]?.seen||0),0)}</b><span>{immersion?'whakamātau':'attempts'}</span></article>
+   <article><b>{g.xp||0}</b><span>{immersion?'XP kua whiwhi':'XP earned'}</span></article>
+  </section>
+  <section className="mastery-mini">{masteryRows}</section>
+  <section className="assessment-history">
+   <p className="eyebrow">RECENT LEVEL CHECKS</p>
+   {recentChecks.map((h,n)=><div key={n}><b>{h.score}/{h.total}</b><span>{LEVELS.find(l=>l.id===h.recommendation)?.label}</span><small>{new Date(h.date).toLocaleDateString()}</small></div>)}
+  </section>
+  <section className="review-list">
+   <div><p className="eyebrow">{immersion?'AROTAKE ATAWHAI':'SMART REVIEW'}</p><h2>{immersion?'Whakamātauhia ngā mea e tika ana kia arohia.':'Practise what needs attention.'}</h2></div>
+   {needs.length?reviewRows:<p>{reviewEmpty}</p>}
+  </section>
+  <section className="next-up">
+   <div><p className="eyebrow">TEACHER / DEVELOPER</p><h2>Content & learner data</h2><p>Validate curriculum references and export or import learner progress.</p></div>
+   <button className="plain-btn" onClick={()=>window.dispatchEvent(new CustomEvent('reo-open-data'))}>Open data centre <ArrowRight size={16}/></button>
+  </section>
+  <section className="status-list"><h2>Progress by level</h2>{levelRows}</section>
+  <section className="next-up">
+   <div><p className="eyebrow">{immersion?'HEI MURI':'NEXT STEP'}</p><h2>{immersion?'Kia rere tonu ngā tauira rerenga.':'Keep sentence patterns moving.'}</h2><p>{immersion?'Whakarongo, whakaraupapa, whakamāori, kōrero.':'Mix listening, ordering, translation and speaking.'}</p></div>
+   <button className="start-btn" onClick={()=>start(5)}>{immersion?'Whakamātau 5 meneti':'Practise 5 min'} <ArrowRight size={18}/></button>
+  </section>
+ </main>;
+}
 function ClassPage({begin,level,setLevel}){const [time,setTime]=useState(10);return <main className="class-page"><div><p className="eyebrow">KAIĀKO MODE</p><h1>Ready when<br/><i>your class is.</i></h1><p className="lede">One large prompt at a time. Listen, think, reveal, repeat.</p><div className="duration">{[5,10,15].map(t=><button key={t} className={time===t?'chosen':''} onClick={()=>setTime(t)}>{t} min</button>)}</div><div className="class-levels">{LEVELS.map(l=><button className={level===l.id?'chosen':''} key={l.id} onClick={()=>setLevel(l.id)}>{l.label}</button>)}</div><button className="start-btn" onClick={()=>begin(time)}>Start whole-class practice <ArrowRight size={19}/></button></div><div className="class-preview"><span className="preview-tag">CLASSROOM DISPLAY</span><div>🏫</div><p>He aha tēnei?</p><b>He pukapuka.</b><AudioButton text="He pukapuka tēnei." large/></div></main>}
 function Classroom({time,level,exit,immersion=false}){const rank=LEVELS.find(l=>l.id===level).rank;const slides=learnerItems().filter(i=>i.level<=rank);const [i,setI]=useState(0),[reveal,setReveal]=useState(false);const item=slides[i%slides.length];const next=()=>{setI(x=>(x+1)%slides.length);setReveal(false)};return <main className="classroom"><header><button onClick={exit}><X/> Exit display</button><span>{LEVELS.find(l=>l.id===level).label} · {time} MIN</span><div>{i+1}/{slides.length}</div></header><section><div className="class-emoji">{item.emoji}</div><p>What does this mean?</p>{reveal?<><h1>{item.reo}</h1><h2>{item.sentence}</h2><p>{item.sentenceMeaning}</p></>:<div className="answer-space">Think. Say it together.</div>}<AudioButton text={item.sentence} large immersion={immersion}/></section><footer><button onClick={()=>setI(x=>(x-1+slides.length)%slides.length)}><ArrowLeft/></button><button className="reveal" onClick={()=>setReveal(x=>!x)}>{reveal?'Hide':'Reveal'}</button><button onClick={next}><ArrowRight/></button></footer></main>}
 function StudentOnboarding({level,setLevel,finish,immersion,setImmersion}){const [stage,setStage]=useState('primary');return <main className="welcome-screen learner-onboarding"><section className="welcome-card"><p className="eyebrow">{immersion?'NAU MAI':'NAU MAI · WELCOME'}</p><h1>{immersion?'Me tīmata tāua':'Start learning'}<br/><i>{immersion?'ināianei':'straight away.'}</i></h1><p className="welcome-intro">{immersion?'Whakaritea tō taumata me tō reanga ako. Ka taea te whakarerekē ā muri ake.':'Set your level and learner stage once. You can change them later.'}</p><div className="welcome-level"><p className="eyebrow">{immersion?'TŌ TAUMATA':'YOUR LEVEL'}</p><LevelPicker level={level} setLevel={setLevel} immersion={immersion}/></div><div className="welcome-level"><p className="eyebrow">{immersion?'REANGA AKO':'LEARNER STAGE'}</p><div className="choice-row">{[['early',immersion?'Kōhungahunga':'Early years'],['primary',immersion?'Tuatahi / kura tuatahi':'Primary'],['secondary',immersion?'Kura tuarua':'Secondary'],['adult',immersion?'Pakeke':'Adult']].map(([id,label])=><button className={stage===id?'chosen':''} key={id} onClick={()=>setStage(id)}>{label}</button>)}</div></div><button className="immersion-toggle onboarding-immersion" onClick={()=>setImmersion(v=>!v)}>{immersion?'Aratau rumaki: KĀ':'Immersion mode: OFF'}</button><button className="start-btn welcome-start" onClick={()=>finish({name:'',goal:'speak',stage})}>{immersion?'Tīmata te ako':'Start learning'} <ArrowRight size={18}/></button></section></main>}
