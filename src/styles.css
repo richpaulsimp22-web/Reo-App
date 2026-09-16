@@ -281,3 +281,76 @@
 @media (min-width:721px){
   body:has(.practice){overflow:hidden}
 }
+
+/* Device display mode — changes only the lesson presentation, while preserving REO's visual language. */
+.device-mode{position:relative;display:flex;align-items:center}.device-mode-trigger{white-space:nowrap}.device-mode-menu{position:absolute;right:0;top:calc(100% + 9px);z-index:60;width:230px;padding:10px;background:var(--white);border:1px solid var(--line);border-radius:14px;box-shadow:0 14px 35px #173a3620}.device-mode-menu>b{display:block;padding:5px 9px 8px;font:500 10px 'DM Mono';letter-spacing:1px;color:#71807c}.device-mode-menu>button{width:100%;border:0;background:transparent;border-radius:9px;padding:9px;text-align:left;color:var(--ink);font-weight:800;display:flex;flex-direction:column;gap:2px}.device-mode-menu>button:hover,.device-mode-menu>button.active{background:#eef4ee}.device-mode-menu>button small{font-size:10px;font-weight:500;color:#7a8984}
+
+/* Larger lesson typography. The composition itself scales to the viewport so controls remain reachable. */
+.practice .activity-card .activity-toolbar .plain-btn.compact:nth-child(2){font-size:25px;line-height:1.05;padding:7px 11px}
+.practice .activity-card .activity-meta{font-size:25px;line-height:1.05;gap:10px}
+.practice .activity-card .visual.small{font-size:180px;line-height:.82}
+.practice .activity-card .prompt{font-size:30px;line-height:1.05;letter-spacing:1.4px;margin:8px 0}
+.practice .activity-card h1{font-size:clamp(64px,8vw,112px);line-height:.98;margin:8px 0}
+.practice .activity-card .build-target{font-size:clamp(54px,7vw,88px)!important;line-height:1.02;margin:8px auto 10px!important}
+.practice .activity-card .audio-fallback{font-size:25px;line-height:1.1;padding:10px 16px}
+.practice .activity-card .audio-note{display:block;font-size:25px;line-height:1.15;max-width:820px;margin:8px auto}
+.practice .activity-card .audio-text-answer{font-size:40px;line-height:1.2}
+.practice .activity-card .choices button{font-size:28px;line-height:1.15;padding:14px 16px;min-height:54px}
+.practice .activity-card .choices button span{width:34px;height:34px;font-size:16px;flex:0 0 34px}
+.practice .activity-card .built,.practice .activity-card .word-bank{font-size:28px}
+.practice .activity-card .built button,.practice .activity-card .word-bank button{font-size:28px;padding:11px 14px}
+.practice .activity-card .check-btn,.practice .activity-card .next-btn{font-size:27px;padding:14px 20px}
+.practice .activity-card .feedback,.practice .activity-card .build-feedback{font-size:25px;line-height:1.2}
+
+/* Computer = full-width laptop/desktop lesson. */
+:root[data-device-mode="computer"] .practice{max-width:1180px}
+
+/* Tablet = narrower, touch-friendly composition. */
+:root[data-device-mode="tablet"] .practice{max-width:900px;padding-left:24px;padding-right:24px}
+:root[data-device-mode="tablet"] .practice .activity-card .choices{max-width:720px}
+:root[data-device-mode="tablet"] .practice .activity-card .choices button{min-height:62px}
+:root[data-device-mode="tablet"] .practice .activity-card .word-bank{max-width:760px}
+
+/* Phone = portrait-style single-column lesson. */
+:root[data-device-mode="phone"] .app-header{padding:10px 12px;gap:8px}
+:root[data-device-mode="phone"] .app-header nav{display:none}
+:root[data-device-mode="phone"] .header-actions{margin-left:auto;gap:5px}
+:root[data-device-mode="phone"] .header-actions .immersion-toggle{display:none}
+:root[data-device-mode="phone"] .teacher-login-btn{display:none}
+:root[data-device-mode="phone"] .practice{width:min(430px,100%);max-width:430px;height:calc(100vh - 66px);padding:7px 9px 9px}
+:root[data-device-mode="phone"] .practice>.key-guide{display:none}
+:root[data-device-mode="phone"] .practice-head{margin-bottom:5px}
+:root[data-device-mode="phone"] .activity-card{padding:14px 10px;border-radius:14px}
+:root[data-device-mode="phone"] .activity-card .activity-toolbar{margin-bottom:3px}
+:root[data-device-mode="phone"] .activity-card .activity-meta{font-size:18px}
+:root[data-device-mode="phone"] .activity-card .visual.small{font-size:105px}
+:root[data-device-mode="phone"] .activity-card .prompt{font-size:21px}
+:root[data-device-mode="phone"] .activity-card h1{font-size:clamp(43px,12vw,62px)}
+:root[data-device-mode="phone"] .activity-card .build-target{font-size:clamp(38px,10vw,54px)!important}
+:root[data-device-mode="phone"] .activity-card .audio-fallback{font-size:18px}
+:root[data-device-mode="phone"] .activity-card .audio-note{font-size:18px}
+:root[data-device-mode="phone"] .activity-card .choices button{font-size:19px;min-height:48px;padding:10px 11px}
+:root[data-device-mode="phone"] .activity-card .built button,:root[data-device-mode="phone"] .activity-card .word-bank button{font-size:19px;padding:9px 10px}
+
+/* The requested larger type is retained, while the lesson is proportionally fitted on shorter screens. */
+@media (min-width:721px) and (max-height:1000px){
+  .practice .activity-card{zoom:clamp(.70, calc(100vh / 1050), .94)}
+}
+@media (min-width:721px) and (max-height:760px){
+  .practice .activity-card{zoom:.68}
+  .practice .activity-card .visual.small{font-size:145px}
+  .practice .activity-card .prompt{font-size:25px}
+  .practice .activity-card h1{font-size:clamp(56px,7vw,88px)}
+  .practice .activity-card .build-target{font-size:clamp(48px,6vw,72px)!important}
+  .practice .activity-card .choices button{font-size:24px;min-height:46px;padding:10px 12px}
+}
+@media (min-width:721px) and (max-height:660px){
+  .practice .activity-card{zoom:.58}
+}
+
+/* Keep an active lesson completely self-contained: no browser-page scroll in any device mode. */
+:root[data-device-mode] body:has(.practice){overflow:hidden}
+@media (max-width:720px){
+  :root[data-device-mode="phone"] .practice .activity-card{zoom:.66}
+  :root[data-device-mode="tablet"] .practice .activity-card{zoom:.78}
+}
