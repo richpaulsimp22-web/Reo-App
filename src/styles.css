@@ -342,3 +342,66 @@
 .practice .activity-card{zoom:1;transform-origin:top center;margin-bottom:0;}
 .practice .activity-card .key-overlay{max-height:none;overflow:visible;}
 .practice .activity-card .audio-text-answer,.practice .activity-card .audio-note{max-width:min(860px,100%);overflow-wrap:anywhere;}
+
+/* Final viewport composition: match the compact REO lesson layout while keeping every control visible. */
+body:has(.practice){overflow:hidden}
+body:has(.practice) .app-header{height:76px;min-height:76px;padding:8px clamp(16px,2vw,36px);gap:clamp(10px,2vw,28px)}
+body:has(.practice) .app-header nav{margin-inline:auto;gap:clamp(2px,.6vw,8px)}
+body:has(.practice) .app-header nav button{padding:8px clamp(7px,.7vw,12px);white-space:nowrap}
+body:has(.practice) .header-actions{gap:clamp(5px,.6vw,10px);align-items:center}
+.practice{width:100%;max-width:none;height:calc(100vh - 76px);height:calc(100dvh - 76px);min-height:0;margin:0 auto;padding:10px clamp(14px,3.5vw,60px) 12px;display:flex;flex-direction:column;overflow:hidden;gap:0}
+.practice>.key-guide{position:static;flex:0 0 auto;width:max-content;max-width:100%;margin:0 auto 8px;padding:7px 12px;gap:7px;background:#153c37;color:#e4eee8;box-shadow:0 6px 20px #153c3718;font-size:10px;line-height:1.15}
+.practice>.key-guide span{background:#244b44;border-color:#52736a;color:#f4f7f2;padding:5px 8px;white-space:nowrap}
+.practice-head{flex:0 0 auto;width:min(1180px,100%);margin:0 auto 8px;min-height:34px}
+.practice-head .back-link{font-size:21px}
+.practice-head .session-meter{width:min(300px,35%)}
+.practice-head .session-meter span{font-size:13px}
+.activity-card{position:relative;flex:1 1 0;width:100%;min-height:0;height:auto;overflow:hidden;padding:12px 18px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;text-align:center;background:var(--white);border:1px solid var(--line);border-radius:8px;box-shadow:0 8px 30px #153a3210}
+.activity-card-content{width:100%;max-width:100%;display:flex;flex:0 0 auto;flex-direction:column;align-items:center;justify-content:flex-start;text-align:center;transform-origin:top center;zoom:1}
+.activity-card-content>.activity-toolbar{width:100%;max-width:720px;margin:0 auto 5px;flex:0 0 auto}
+.activity-card-content>.activity-meta{display:flex;justify-content:center;gap:10px;margin:0 auto 2px;font-size:16px;line-height:1.1;flex:0 0 auto}
+.activity-card-content>.visual.small{font-size:clamp(56px,10vh,100px);line-height:.85;margin:3px 0 5px;flex:0 0 auto}
+.activity-card-content>.prompt{font-size:clamp(16px,1.35vw,22px);line-height:1.15;letter-spacing:.5px;margin:6px 0 4px;flex:0 0 auto}
+.activity-card-content>h1{font-size:clamp(38px,4.2vw,64px);line-height:1.02;margin:6px 0;color:var(--deep);flex:0 0 auto;max-width:900px;text-wrap:balance}
+.activity-card-content>.build-target{font-size:clamp(34px,3.8vw,58px)!important;line-height:1.04;margin:6px auto 8px!important;max-width:900px}
+.activity-card-content>.audio-wrap{margin:2px auto;flex:0 0 auto}
+.activity-card-content .audio-btn.large{width:clamp(48px,6vh,60px);height:clamp(48px,6vh,60px);margin:3px}
+.activity-card-content .audio-fallback{font-size:clamp(12px,1.1vw,17px);line-height:1.15;padding:7px 11px}
+.activity-card-content .audio-note{display:block;font-size:clamp(13px,1.15vw,17px);line-height:1.2;max-width:820px;margin:5px auto}
+.activity-card-content .audio-text-answer{font-size:clamp(20px,2vw,30px);line-height:1.2;margin:6px auto;padding:8px 12px}
+.activity-card-content>.choices{display:grid;width:min(510px,100%);max-width:100%;margin:7px auto;gap:5px;flex:0 0 auto}
+.activity-card-content>.choices button{font-size:clamp(15px,1.35vw,20px);line-height:1.15;padding:9px 12px;min-height:40px}
+.activity-card-content>.choices button span{width:26px;height:26px;flex:0 0 26px;font-size:12px}
+.activity-card-content>.built{min-height:44px;margin:6px auto;padding:6px;max-width:820px;flex:0 0 auto}
+.activity-card-content>.word-bank{margin:6px auto;gap:6px;max-width:900px;flex:0 0 auto}
+.activity-card-content .built button,.activity-card-content .word-bank button{font-size:clamp(15px,1.3vw,20px);padding:8px 10px}
+.activity-card-content>.check-btn,.activity-card-content>.next-btn{font-size:clamp(15px,1.35vw,20px);padding:10px 16px;margin-top:7px;flex:0 0 auto}
+.activity-card-content>.feedback,.activity-card-content>.build-feedback{font-size:clamp(14px,1.2vw,18px);line-height:1.2;margin:6px auto 0;padding:8px 11px;flex:0 0 auto}
+.activity-card-content .grammar-card,.activity-card-content .translation-reveal{margin:6px auto;padding:9px 12px;max-width:820px}
+.activity-card-content .record-row{margin:6px 0}
+.activity-card-content .dictation-input{max-width:600px;width:100%;padding:9px 11px}
+.activity-card-content .model-sentence h2{font-size:clamp(20px,2.1vw,28px);margin:6px 0 3px}
+.activity-card-content .key-overlay{max-height:none;overflow:visible}
+.activity-card-content .audio-text-answer,.activity-card-content .audio-note{max-width:min(860px,100%);overflow-wrap:anywhere}
+@media(max-width:720px){
+ body:has(.practice) .app-header{height:auto;min-height:60px;padding:8px 12px;gap:6px;flex-wrap:wrap}
+ body:has(.practice) .app-header nav{display:none}
+ body:has(.practice) .header-actions{margin-left:auto;gap:5px;flex-wrap:wrap}
+ body:has(.practice) .header-actions .immersion-toggle,body:has(.practice) .teacher-login-btn{display:none}
+ .practice{height:calc(100dvh - 60px);padding:7px 9px 9px}
+ .practice>.key-guide{font-size:9px;gap:4px;padding:5px 7px;margin-bottom:5px}
+ .practice>.key-guide span{padding:4px 5px}
+ .practice-head{margin-bottom:5px;min-height:28px}
+ .practice-head .back-link{font-size:16px}
+ .practice-head .session-meter{width:42%}
+ .practice-head .session-meter span{font-size:11px}
+ .activity-card{padding:9px 8px;border-radius:12px}
+ .activity-card-content>.activity-toolbar{margin-bottom:3px}
+ .activity-card-content>.visual.small{font-size:clamp(42px,8vh,72px)}
+ .activity-card-content>.prompt{font-size:clamp(14px,3.8vw,18px)}
+ .activity-card-content>h1{font-size:clamp(30px,7.8vw,44px)}
+ .activity-card-content>.build-target{font-size:clamp(28px,7vw,40px)!important}
+ .activity-card-content>.choices button{font-size:clamp(14px,3.6vw,17px);padding:8px 9px;min-height:38px}
+ .activity-card-content .audio-fallback,.activity-card-content .audio-note{font-size:13px}
+ .activity-card-content .built button,.activity-card-content .word-bank button{font-size:14px;padding:7px 8px}
+}
