@@ -614,3 +614,66 @@ body:has(.practice) .header-actions{gap:clamp(5px,.6vw,10px);align-items:center}
  .sentence-visual-strip{order:1}
  .sentence-lab-running .sentence-question-nav button,.sentence-lab-running .sentence-activity-footer button{min-height:44px}
 }
+
+/* Final Sentence Lab refinement: visuals are an overlay, never part of layout flow. */
+.sentence-lab-running .sentence-activity-card{position:relative;isolation:isolate;}
+.sentence-lab-running .sentence-visual-panel{
+  position:absolute;z-index:1;top:31%;left:clamp(12px,1.8vw,30px);right:clamp(12px,1.8vw,30px);
+  display:flex;align-items:flex-start;justify-content:space-between;gap:18px;
+  margin:0;padding:0;border:0;background:transparent;pointer-events:none;
+}
+.sentence-lab-running .sentence-visual-key,
+.sentence-lab-running .sentence-visual-strip{width:clamp(145px,13vw,225px);max-width:225px;display:flex;flex-direction:column;align-items:flex-start;gap:6px;}
+.sentence-lab-running .sentence-visual-key>span{width:100%;box-sizing:border-box;padding:7px 9px;border-radius:10px;box-shadow:0 2px 8px #17382b08;}
+.sentence-lab-running .sentence-visual-key b{font-size:23px;flex:0 0 28px;text-align:center;}
+.sentence-lab-running .sentence-visual-key small{font-size:11px;line-height:1.2;}
+.sentence-lab-running .sentence-visual-strip{align-items:flex-end;}
+.sentence-lab-running .sentence-visual-token{box-sizing:border-box;max-width:100%;min-height:40px;padding:7px 10px;gap:8px;box-shadow:0 2px 8px #17382b08;}
+.sentence-lab-running .sentence-visual-token b{font-size:24px;}
+.sentence-lab-running .sentence-visual-token small{font-size:12px;}
+/* The learner task remains centered and identical whether visuals are on or off. */
+.sentence-lab-running .sentence-target{position:relative;z-index:2;max-width:min(100%,900px);}
+.sentence-lab-running .sentence-target h2{font-size:clamp(32px,3.2vw,48px);line-height:1.12;margin:12px 0;}
+.sentence-lab-running .sentence-target p{font-size:clamp(15px,1.2vw,19px);line-height:1.45;margin:8px auto;max-width:760px;}
+.sentence-lab-running .sentence-target>small{font-size:clamp(12px,.95vw,15px);letter-spacing:1.1px;}
+.sentence-lab-running .sentence-built{position:relative;z-index:2;min-height:68px;padding:12px;margin:12px auto 14px;gap:10px;}
+.sentence-lab-running .sentence-word-bank{position:relative;z-index:2;gap:10px;margin:12px auto;}
+.sentence-lab-running .sentence-word-bank button,
+.sentence-lab-running .sentence-built button{min-height:56px;padding:13px 19px;font-size:clamp(18px,1.55vw,24px);line-height:1.15;border-radius:11px;touch-action:manipulation;}
+.sentence-lab-running .sentence-built span{font-size:clamp(15px,1.2vw,19px);}
+.sentence-lab-running .sentence-actions{position:relative;z-index:2;margin:12px 0;gap:18px;}
+.sentence-lab-running .sentence-actions button{min-height:54px;padding:13px 20px;font-size:clamp(16px,1.2vw,20px);}
+.sentence-lab-running .sentence-question-nav,
+.sentence-lab-running .sentence-activity-footer{position:relative;z-index:3;}
+.sentence-lab-running .sentence-question-nav button,
+.sentence-lab-running .sentence-activity-footer button{min-height:48px;padding:12px 18px;font-size:14px;}
+.sentence-lab-running .sentence-activity-footer .next-btn{min-width:260px;}
+.sentence-lab-running .sentence-feedback{position:relative;z-index:3;font-size:15px;line-height:1.4;}
+@media (max-width:1100px){
+ .sentence-lab-running .sentence-visual-panel{top:29%;left:10px;right:10px;gap:8px;}
+ .sentence-lab-running .sentence-visual-key,.sentence-lab-running .sentence-visual-strip{width:clamp(125px,15vw,175px);}
+ .sentence-lab-running .sentence-visual-key>span{padding:5px 6px;gap:4px;}
+ .sentence-lab-running .sentence-visual-key b{font-size:19px;flex-basis:22px;}
+ .sentence-lab-running .sentence-visual-key small{font-size:10px;}
+ .sentence-lab-running .sentence-visual-token{padding:5px 7px;min-height:34px;}
+ .sentence-lab-running .sentence-visual-token b{font-size:20px;}
+ .sentence-lab-running .sentence-visual-token small{font-size:11px;}
+ .sentence-lab-running .sentence-target{max-width:calc(100% - 300px);}
+ .sentence-lab-running .sentence-target h2{font-size:clamp(27px,3vw,38px);}
+ .sentence-lab-running .sentence-word-bank button,.sentence-lab-running .sentence-built button{min-height:50px;padding:11px 14px;font-size:clamp(17px,1.8vw,21px);}
+}
+@media (max-width:720px){
+ .sentence-lab-running .sentence-visual-panel{top:auto;bottom:74px;left:8px;right:8px;flex-direction:row;align-items:flex-end;}
+ .sentence-lab-running .sentence-visual-key,.sentence-lab-running .sentence-visual-strip{width:46%;max-width:46%;max-height:115px;overflow:hidden;}
+ .sentence-lab-running .sentence-visual-key{flex-direction:row;flex-wrap:wrap;}
+ .sentence-lab-running .sentence-visual-key>span{width:auto;max-width:100%;}
+ .sentence-lab-running .sentence-visual-strip{flex-direction:row;flex-wrap:wrap;justify-content:flex-end;}
+ .sentence-lab-running .sentence-visual-token{min-height:30px;padding:4px 6px;}
+ .sentence-lab-running .sentence-visual-token b{font-size:17px;}
+ .sentence-lab-running .sentence-visual-token small{font-size:10px;}
+ .sentence-lab-running .sentence-target{max-width:100%;}
+ .sentence-lab-running .sentence-target h2{font-size:clamp(26px,7vw,36px);}
+ .sentence-lab-running .sentence-target p{font-size:15px;}
+ .sentence-lab-running .sentence-word-bank button,.sentence-lab-running .sentence-built button{min-height:48px;padding:10px 13px;font-size:18px;}
+ .sentence-lab-running .sentence-activity-footer .next-btn{min-width:0;width:auto;}
+}
