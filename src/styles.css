@@ -677,3 +677,38 @@ body:has(.practice) .header-actions{gap:clamp(5px,.6vw,10px);align-items:center}
  .sentence-lab-running .sentence-word-bank button,.sentence-lab-running .sentence-built button{min-height:48px;padding:10px 13px;font-size:18px;}
  .sentence-lab-running .sentence-activity-footer .next-btn{min-width:0;width:auto;}
 }
+
+
+/* REO reliability update: visuals belong on the word tiles, not only in a detached key. */
+.sentence-lab-running .sentence-inline-visual{
+ display:inline-flex;align-items:center;justify-content:center;
+ width:1.35em;min-width:1.35em;height:1.25em;margin-right:.34em;
+ font-size:1em;line-height:1;vertical-align:middle;flex:0 0 1.35em;
+}
+.sentence-lab-running .sentence-inline-visual.is-hidden{visibility:hidden;}
+.sentence-lab-running .sentence-word-bank button,
+.sentence-lab-running .sentence-built button{display:inline-flex;align-items:center;justify-content:center;gap:0;}
+.sentence-lab-running .sentence-visual-panel.visuals-hidden{visibility:hidden;pointer-events:none;}
+.sentence-lab-running .sentence-visual-panel{pointer-events:none;}
+.sentence-lab-running .sentence-visual-key{pointer-events:none;}
+.sentence-lab-running .sentence-feedback{scroll-margin:18px;min-height:56px;box-sizing:border-box;margin:14px 0 18px!important;padding:14px 16px!important;line-height:1.45;overflow-wrap:anywhere;}
+.sentence-lab-running .sentence-answer-help{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;}
+.sentence-lab-running .sentence-answer-help button{min-height:44px;}
+.sentence-lab-running .sentence-question-nav{display:flex;align-items:center;justify-content:space-between;gap:12px;position:relative!important;z-index:20;margin:14px 0 0!important;padding:12px 0!important;border-top:1px solid #e5e8e1;}
+.sentence-lab-running .sentence-question-nav button{min-height:48px;white-space:normal;}
+.sentence-lab-running .sentence-activity-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;position:relative!important;z-index:20;margin:10px 0 0!important;padding:12px 0 max(14px,env(safe-area-inset-bottom))!important;border-top:1px solid #e5e8e1;}
+.sentence-lab-running .sentence-activity-footer button{min-height:48px;white-space:normal;}
+/* Do not clip the feedback, next-question controls, or continue action on tablets. */
+:root[data-device-mode="tablet"] .sentence-lab-running{height:auto!important;max-height:none!important;min-height:calc(100dvh - 88px);overflow:visible!important;padding-bottom:max(18px,env(safe-area-inset-bottom))!important;}
+:root[data-device-mode="tablet"] .sentence-lab-running .sentence-activity-card{height:auto!important;max-height:none!important;min-height:0;overflow:visible!important;display:flex;flex-direction:column;padding-bottom:max(22px,env(safe-area-inset-bottom))!important;}
+:root[data-device-mode="tablet"] .sentence-lab-running .sentence-question-nav,
+:root[data-device-mode="tablet"] .sentence-lab-running .sentence-activity-footer{flex-shrink:0;}
+:root[data-device-mode="tablet"] .sentence-lab-running .sentence-activity-footer .next-btn{min-width:0;max-width:52%;}
+@media(max-width:720px){
+ .sentence-lab-running .sentence-question-nav{gap:6px;}
+ .sentence-lab-running .sentence-question-nav button{padding:10px 9px;font-size:12px;}
+ .sentence-lab-running .sentence-activity-footer{flex-direction:column;align-items:stretch;}
+ .sentence-lab-running .sentence-activity-footer button{width:100%;max-width:100%!important;}
+ .sentence-lab-running .sentence-answer-help{flex-direction:column;}
+ .sentence-lab-running .sentence-answer-help button{width:100%;}
+}
